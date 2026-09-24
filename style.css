@@ -1,0 +1,359 @@
+:root {
+    --bg-color: #050510;
+    --paper-color: #fdf5e6;
+    --text-color: #4a3b2a;
+    --gold-glow: #ffd700;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+body {
+    background-image: url('img/background2.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #050510;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- 1. Background Sao --- */
+.stars-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: twinkle 5s infinite;
+    z-index: 0;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* --- 2. Đèn lồng bay --- */
+.lantern-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.lantern {
+    position: absolute;
+    bottom: -100px;
+    width: 40px;
+    height: 60px;
+    background: url('https://i.imgur.com/your-lantern.png') no-repeat center/contain;
+    animation: flyUp linear infinite;
+    opacity: 0;
+}
+
+@keyframes flyUp {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.8; }
+    100% { transform: translateY(-110vh) rotate(10deg); opacity: 0; }
+}
+
+/* --- 3. Mây --- */
+.cloud {
+    position: absolute;
+    width: 150px;
+    opacity: 0.6;
+    z-index: 1;
+    filter: blur(2px);
+}
+.cloud-left  { bottom: 5%;  left: -50px;  transform: scaleX(-1); }
+.cloud-right { bottom: 10%; right: -50px; }
+
+/* ❌ ĐÃ XÓA .music-player VÀ .music-icon */
+
+/* ==== LÁ THƯ — NHỎ GỌN ==== */
+.letter-wrapper {
+    position: relative;
+    z-index: 5;
+    width: 78%;
+    max-width: 320px;
+}
+
+.letter-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -18px;
+    background: radial-gradient(
+        circle,
+        rgba(255, 215, 0, 0.28) 0%,
+        transparent 70%
+    );
+    z-index: -1;
+    animation: glowPulse 4s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.05); }
+}
+
+/* === KHUNG THƯ VÀNG TRONG SUỐT === */
+.letter-paper {
+    background: linear-gradient(
+        145deg,
+        rgba(255, 248, 220, 0.55) 0%,
+        rgba(255, 236, 179, 0.68) 50%,
+        rgba(255, 248, 220, 0.55) 100%
+    );
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+
+    border: 1.5px solid transparent;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-image: linear-gradient(
+        135deg,
+        #ffd700,
+        #fff8b0,
+        #e6b800,
+        #fff8b0,
+        #ffd700
+    ) 1;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 215, 0, 0.18),
+        0 0 18px rgba(255, 215, 0, 0.45),
+        0 12px 28px rgba(0, 0, 0, 0.45),
+        inset 0 0 25px rgba(255, 255, 255, 0.25);
+
+    padding: 28px 18px 22px;
+    position: relative;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: floatLetter 3s ease-in-out infinite;
+    overflow: visible;
+}
+
+.letter-paper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255, 255, 200, 0.65) 50%,
+        transparent 70%
+    );
+    background-size: 250% 250%;
+    animation: shineSweep 6s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(5px);
+}
+
+@keyframes shineSweep {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -100% 0; }
+}
+
+.letter-paper::after {
+    content: '🌕';
+    position: absolute;
+    bottom: -12px;
+    left: 12px;
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 8px #ffd700);
+    animation: moonPulse 3s infinite alternate;
+}
+
+@keyframes floatLetter {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+
+/* Trang trí mặt trăng & thỏ */
+.decor-top {
+    position: absolute;
+    top: -22px;
+    right: 6px;
+    width: 60px;
+    height: 60px;
+}
+
+.moon-glow {
+    width: 34px;
+    height: 34px;
+    background: radial-gradient(circle, #fff 30%, #ffd700 70%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ffd700, 0 0 30px #ff8c00;
+    position: absolute;
+    top: 0;
+    right: 0;
+    animation: moonPulse 3s infinite alternate;
+}
+
+@keyframes moonPulse {
+    from { box-shadow: 0 0 12px #ffd700; }
+    to   { box-shadow: 0 0 22px #ffd700, 0 0 45px #ff8c00; }
+}
+
+.rabbit-img {
+    width: 40px;
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    z-index: 2;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+}
+
+/* ==== NỘI DUNG CHỮ ==== */
+.letter-content {
+    font-family: 'Caveat', cursive;
+    color: #5a3a12;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    text-align: justify;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 2;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #a0521a;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.typewriter::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.signature {
+    margin-top: 14px;
+    text-align: right;
+    font-weight: bold;
+    color: #b8651b;
+    font-size: 1.1rem;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+/* ==== MEDIA QUERY ==== */
+@media (max-width: 480px) {
+    .letter-wrapper { max-width: 290px; }
+    .letter-paper   { padding: 24px 16px 20px; }
+    .letter-content { font-size: 1rem; }
+    .title          { font-size: 1.5rem; }
+    .signature      { font-size: 1.05rem; }
+}
+
+@media (min-width: 768px) {
+    .letter-wrapper { max-width: 360px; }
+    .letter-paper   { padding: 34px 24px 28px; }
+    .letter-content { font-size: 1.15rem; }
+    .title          { font-size: 1.85rem; }
+}
+.sao {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff;
+    animation: bay 4s linear infinite;
+    z-index: 0;
+    opacity: 0;
+}
+
+.sao::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
+    height: 1px;
+    background: linear-gradient(90deg, #fff, transparent);
+}
+
+@keyframes bay {
+    0%   { transform: rotate(315deg) translateX(0); opacity: 1; }
+    30%  { opacity: 1; }
+    70%  { transform: rotate(315deg) translateX(-800px); opacity: 0; }
+    100% { opacity: 0; }
+}
+.letter-wrapper {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.letter-wrapper:hover {
+    transform: scale(1.03) translateY(-10px);
+}
+
+.letter-wrapper:hover::before {
+    animation: glowPulse 2s ease-in-out infinite;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+}
+#vung {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 4;
+    overflow: hidden;
+}
+
+.aroi {
+    position: absolute;
+    top: -15vh;
+    z-index: 4;
+    animation: roicham linear forwards;
+    pointer-events: none;
+    object-fit: cover;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+}
+
+@keyframes roicham {
+    0% { transform: translateY(0) rotate(-15deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(120vh) rotate(15deg); opacity: 0; }
+}
