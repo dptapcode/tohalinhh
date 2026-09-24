@@ -30,25 +30,33 @@ body {
 }
 
 /* --- 1. Background Sao --- */
-.stars-bg {
+.sao {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0));
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    animation: twinkle 5s infinite;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #fff;
+    animation: bay linear forwards;
     z-index: 0;
+    opacity: 0;
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
+.sao::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,1), transparent);
+}
+
+@keyframes bay {
+    0%   { transform: rotate(315deg) translateX(0); opacity: 1; }
+    10%  { opacity: 1; }
+    80%  { transform: rotate(315deg) translateX(-1200px); opacity: 0; }
+    100% { opacity: 0; }
 }
 
 /* --- 2. Đèn lồng bay --- */
@@ -200,10 +208,11 @@ body {
 /* Trang trí mặt trăng & thỏ */
 .decor-top {
     position: absolute;
-    top: -22px;
+    top: 1px;
     right: 6px;
     width: 60px;
     height: 60px;
+    overflow: visible;
 }
 
 .moon-glow {
@@ -224,9 +233,9 @@ body {
 }
 
 .rabbit-img {
-    width: 40px;
+    width: 60px;
     position: absolute;
-    bottom: -6px;
+    bottom: 1px;
     left: 0;
     z-index: 2;
     filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
@@ -356,4 +365,36 @@ body {
     10% { opacity: 0.8; }
     90% { opacity: 0.8; }
     100% { transform: translateY(120vh) rotate(15deg); opacity: 0; }
+}
+.letter-content {
+    font-family: 'Patrick Hand', cursive;
+    color: #5a3a12;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    text-align: justify;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 2;
+}
+
+@media (max-width: 480px) {
+    .letter-wrapper { 
+        width: 82%;
+        max-width: 280px; 
+    }
+    .letter-paper { 
+        padding: 18px 14px 15px; 
+    }
+    .letter-content { 
+        font-size: 0.95rem; 
+        line-height: 1.35;
+    }
+    .title { 
+        font-size: 1.5rem; 
+        margin-bottom: 5px;
+    }
+    .signature { 
+        font-size: 1.05rem; 
+        margin-top: 10px;
+    }
 }
